@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "Phishing Link Detector",
+    "version": "1.0.0",
+    "permissions": ["scripting", "activeTab", "contextMenus"],
+    "background": {
+        "service_worker": "service_worker.js"
+    },
+    "action": {}
+}
