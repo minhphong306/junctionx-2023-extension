@@ -2,9 +2,10 @@
     "manifest_version": 3,
     "name": "Phishing Link Detector",
     "version": "1.0.0",
-    "permissions": ["scripting", "activeTab", "contextMenus"],
+    "permissions": ["scripting", "activeTab", "contextMenus", "storage"],
     "background": {
         "service_worker": "service_worker.js"
     },
+    "options_page": "./pages/setting/index.html",
     "action": {}
 }

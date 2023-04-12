@@ -66,7 +66,6 @@ main > * {
 
 .all-settings {
     margin-left: 10px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 23px;
@@ -102,6 +101,11 @@ main > * {
 
 .setting-card-options input {
     margin-right: 11px;
+    cursor: pointer;
+}
+
+.setting-card-options label {
+    cursor: pointer;
 }
 
 .btn-group {
@@ -122,13 +126,14 @@ main > * {
     cursor: pointer;
 }
 
-.btn-discard {
+#btn-discard {
     border: 1px solid #c4cdd5;
     color: #37393e;
     background: #FFFFFF;
+    display: none;
 }
 
-.btn-save {
+#btn-save {
     border: 1px solid #0554F2;
     background: #0554F2;
     color: #FFFFFF;
