@@ -4,7 +4,8 @@
     "version": "1.0.0",
     "permissions": ["scripting", "activeTab", "contextMenus", "storage"],
     "background": {
-        "service_worker": "service_worker.js"
+        "service_worker": "service_worker.js",
+        "type": "module"
     },
     "options_page": "./pages/setting/index.html",
     "action": {},

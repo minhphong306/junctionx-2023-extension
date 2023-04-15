@@ -54,12 +54,15 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
             args: [info],
         });
     } else if (info.menuItemId === 'report') {
+        const raw = await fetch('https://google.com')
+        const res = await raw.text();
+        
         await chrome.scripting.executeScript({
             target: { tabId: (await getCurrentTab()).id },
-            func: (info) => {
-                alert(`Reported link successfully`);
+            func: (res) => {
+                alert(res);
             },
-            args: [info],
+            args: [res],
         });
     }
 });

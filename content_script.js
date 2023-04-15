@@ -11,8 +11,16 @@
                 let links = [];
 
                 [...anchors].forEach((item, index) => {
-                    if (isValidUrl(item.textContent) && item.href != item.textContent) {
-                        item.style.background = 'red';
+                    if (typeof item.href != 'string') return;
+
+                    const protocol = item.href.split('/')[0];
+                    const host = item.href.split('/')[2];
+
+                    if (
+                        protocol === location.protocol &&
+                        (host === location.host || 'www.' + host === location.host || host === 'www.' + location.host)
+                    ) {
+                        return;
                     }
                     links.push({
                         id: index + 1,
@@ -27,7 +35,7 @@
 
                 for (let link of links) {
                     if (res.phishings.includes(link.id)) {
-                        link.dom.style.background = 'red';
+                        link.dom.style.backgroundColor = 'red';
                     }
                 }
 
@@ -47,7 +55,7 @@
                     item.textContent = item.href;
                 }
             });
-        }
+        };
         setInterval(replaceFakeUrl, 3000);
     }
 })();
