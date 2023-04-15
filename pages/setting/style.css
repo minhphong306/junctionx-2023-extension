@@ -99,6 +99,10 @@ main > * {
     align-items: center;
 }
 
+.setting-card-options > .lv-2 {
+    margin-left: 25px;
+}
+
 .setting-card-options input {
     margin-right: 11px;
     cursor: pointer;

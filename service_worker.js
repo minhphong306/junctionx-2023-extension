@@ -4,34 +4,15 @@ async function getCurrentTab() {
     return tab;
 }
 
-async function updateContextMenus() {
-    const settings = await chrome.storage.local.get();
-    if (!settings['real-time-protection']) {
-        chrome.contextMenus.remove('real-time-protection');
-    } else {
-        chrome.contextMenus.create({
-            id: 'real-time-protection',
-            title: 'Real-time Protection',
-        });
-    }
-}
-
 chrome.runtime.onInstalled.addListener(async () => {
     const defaultSettings = {
         'real-time-protection': true,
         'machine-learning-detecting': true,
         'auto-report': false,
         'enable-shopee-title': true,
-        'enable-href': false,
+        'enable-href': true,
     };
     await chrome.storage.local.set(defaultSettings);
-
-    if (defaultSettings['real-time-protection']) {
-        chrome.contextMenus.create({
-            id: 'real-time-protection',
-            title: 'Real-time Protection',
-        });
-    }
 
     chrome.contextMenus.create({
         id: 'reveal',
@@ -46,9 +27,20 @@ chrome.runtime.onInstalled.addListener(async () => {
     });
 });
 
-chrome.runtime.onMessage.addListener(async (mess) => {
-    if (mess === 'update-context-menus') {
-        await updateContextMenus();
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.mess === 'check-urls') {
+        (async () => {
+            const raw = await fetch('https://congcu.org/junctionx-be/check-url.php', {
+                method: 'POST',
+                body: JSON.stringify({ urls: request.urls.map((item) => ({ id: item.id, url: item.url })) }),
+            });
+
+            const res = await raw.json();
+
+            sendResponse(res);
+        })();
+
+        return true;
     }
 });
 

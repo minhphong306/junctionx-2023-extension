@@ -7,5 +7,12 @@
         "service_worker": "service_worker.js"
     },
     "options_page": "./pages/setting/index.html",
-    "action": {}
+    "action": {},
+    "content_scripts": [
+        {
+            "js": ["content_script.js"],
+            "matches": ["https://*/*", "http://*/*"]
+        }
+    ],
+    "host_permissions": ["*://*/"]
 }

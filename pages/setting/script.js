@@ -32,7 +32,7 @@ const saveSettings = async () => {
 
     document.getElementById('btn-discard').style.display = 'none';
 
-    await chrome.runtime.sendMessage('update-context-menus');
+    // await chrome.runtime.sendMessage('update-context-menus');
 
     alert('Saved successfully');
 };
@@ -48,4 +48,14 @@ document.querySelectorAll('.all-settings input').forEach((inputTag) => {
     inputTag.addEventListener('change', () => {
         document.getElementById('btn-discard').style.display = 'initial';
     });
+});
+
+document.querySelector('[value="real-time-protection"]').addEventListener('change', () => {
+    if (document.querySelector('[value="real-time-protection"]').checked) {
+        document.querySelector('[value="machine-learning-detecting"]').disabled = false;
+        document.querySelector('[value="machine-learning-detecting"]').checked = true;
+    } else {
+        document.querySelector('[value="machine-learning-detecting"]').disabled = true;
+        document.querySelector('[value="machine-learning-detecting"]').checked = false;
+    }
 });
