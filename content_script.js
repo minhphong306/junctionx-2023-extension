@@ -31,19 +31,24 @@
                 const res = await chrome.runtime.sendMessage({
                     mess: 'check-urls',
                     urls: links,
+                    use_ml: settings['machine-learning-detecting'] ?? false
                 });
 
-                for (let link of links) {
-                    if (res.phishings.includes(link.id)) {
-                        link.dom.style.backgroundColor = 'red';
+                if (res) {
+                    for (let link of links) {
+                        if (res?.phising?.includes(link.id)) {
+                            link.dom.style.backgroundColor = 'red';
+                        }
                     }
+    
+                    lastDetectCounts = anchors.length;
                 }
-
-                lastDetectCounts = anchors.length;
             }
         };
 
-        setInterval(intervalDetectLinks, 5000);
+        await intervalDetectLinks();
+
+        setInterval(intervalDetectLinks, 10000);
     }
 
     if (settings['enable-href']) {
