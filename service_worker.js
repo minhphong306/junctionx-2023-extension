@@ -44,10 +44,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                         urls: request.urls.map((item) => ({ id: item.id, url: item.url })),
                         use_ml: request.use_ml,
                     }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
 
-                const res = await raw.text();
-
+                const res = await raw.json();
+                console.log(res);
                 sendResponse(res);
             } catch (error) {
                 console.log(error);
